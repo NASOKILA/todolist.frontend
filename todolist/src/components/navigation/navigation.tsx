@@ -1,45 +1,42 @@
 import React, { FunctionComponent } from "react";
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
-import Card from "react-bootstrap/Card";
+import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
+import Form from "react-bootstrap/Form";
+import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
+import { Link } from "react-router-dom";
+
 import "./navigation";
 
 type NavigationProps = {};
 
 const Navigation: FunctionComponent = (props: NavigationProps) => {
   return (
-    <div className="navigation">
-      <Card>
-        <Card.Header>
-          <Nav variant="pills" defaultActiveKey="#first">
-            <Nav.Item>
-              <Nav.Link href="#first">Active</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link href="#link">Link</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link href="#disabled" disabled>
-                Disabled
-              </Nav.Link>
-            </Nav.Item>
-          </Nav>
-        </Card.Header>
-        <Card.Body>
-          <Card.Title>Special title treatment</Card.Title>
-          <Card.Text>
-            With supporting text below as a natural lead-in to additional
-            content.
-          </Card.Text>
-          <Button variant="primary">Go somewhere</Button>
-        </Card.Body>
-      </Card>
-    </div>
+    <Navbar bg="dark" variant="dark">
+      <Navbar.Brand href="/home">TODO</Navbar.Brand>
+      <Nav className="mr-auto">
+        <Nav.Link>
+          <Link to="/create">Create</Link>
+        </Nav.Link>
+        <Nav.Link>
+          <Link to="/lists">My lists</Link>
+        </Nav.Link>
+        <Nav.Link>
+          <Link to="/shared">Shared</Link>
+        </Nav.Link>
+      </Nav>
+      <Form inline>
+        <Nav.Link>
+          <Link to="/login">Login</Link>
+        </Nav.Link>
+        <Nav.Link>
+          <Link to="/register">Register</Link>
+        </Nav.Link>
+      </Form>
+    </Navbar>
   );
 };
-
+//   <Link to="/create">Create</Link>
 Navigation.propTypes = {};
 
 export default Navigation;

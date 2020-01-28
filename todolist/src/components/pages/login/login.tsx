@@ -23,7 +23,7 @@ type LoginCredentialsType = {
 };
 
 class Login extends Component<LoginPropsType, LoginStateType> {
-  constructor(props: any) {
+  constructor(props: LoginPropsType) {
     super(props);
 
     this.state = {

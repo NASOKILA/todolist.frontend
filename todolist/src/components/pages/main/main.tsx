@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import "./main.scss";
 type MainPropsType = {};
 
-const Main: FunctionComponent<MainPropsType> = () => {
+const Main: FunctionComponent<MainPropsType> = (props: MainPropsType) => {
   return (
     <Card className="text-center mainpage page">
       <Card.Body>

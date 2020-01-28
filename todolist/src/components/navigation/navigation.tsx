@@ -12,7 +12,7 @@ const Navigation: FunctionComponent<NavigationPropsType> = (
 ) => {
   return (
     <Navbar bg="light" expand="lg">
-      <Navbar.Brand href="#home">TODO</Navbar.Brand>
+      <Navbar.Brand>TODO</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
@@ -22,7 +22,7 @@ const Navigation: FunctionComponent<NavigationPropsType> = (
           <Link to="/create" className="navlink">
             Create
           </Link>
-          <Link to="/list" className="navlink">
+          <Link to="/lists" className="navlink">
             My lists
           </Link>
           <Link to="/shared" className="navlink">

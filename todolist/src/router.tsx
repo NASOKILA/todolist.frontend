@@ -1,9 +1,9 @@
 import React, { FunctionComponent } from "react";
 import { Switch, Route, BrowserRouter } from "react-router-dom";
 import Navigation from "./components/navigation/navigation";
-import Main from "./components/main/main";
+import Main from "./components/pages/main/main";
 import Footer from "./components/footer/footer";
-import Login from "./components/login/login";
+import Login from "./components/pages/login/login";
 
 const Router: FunctionComponent = () => {
   return (

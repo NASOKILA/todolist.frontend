@@ -1,12 +1,12 @@
 import React, { FunctionComponent } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import "../main/main.css";
+import "./main.scss";
 type MainPropsType = {};
 
 const Main: FunctionComponent<MainPropsType> = () => {
   return (
-    <Card className="text-center">
+    <Card className="text-center mainpage page">
       <Card.Body>
         <Card.Title>Todo list</Card.Title>
         <Card.Text>

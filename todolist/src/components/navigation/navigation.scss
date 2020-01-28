@@ -1,0 +1,11 @@
+$defautColor: gray;
+$defautPadding: 0.5rem;
+
+.navlink {
+  color: $defautColor;
+  padding: $defautPadding;
+}
+
+.navlink:hover {
+  text-decoration: none;
+}

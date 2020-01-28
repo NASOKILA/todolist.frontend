@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Card from "react-bootstrap/Card";
+import PropTypes from "prop-types";
 import "./login.scss";
 
 type LoginPropsType = {
@@ -23,7 +24,7 @@ type LoginCredentialsType = {
 };
 
 class Login extends Component<LoginPropsType, LoginStateType> {
-  constructor(props: any) {
+  constructor(props: LoginPropsType) {
     super(props);
 
     this.state = {
@@ -112,5 +113,10 @@ class Login extends Component<LoginPropsType, LoginStateType> {
     );
   }
 }
+
+// Login.propTypes = {
+//   openModal: PropTypes.func.isRequired,
+//   resetAllFields: PropTypes.func.isRequired
+// };
 
 export default Login;

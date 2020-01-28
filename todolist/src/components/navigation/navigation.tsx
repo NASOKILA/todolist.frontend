@@ -2,15 +2,14 @@ import React, { FunctionComponent } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Form from "react-bootstrap/Form";
-import FormControl from "react-bootstrap/FormControl";
-import NavDropdown from "react-bootstrap/NavDropdown";
-import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import "./navigation.scss";
 
-type NavigationProps = {};
+type NavigationPropsType = {};
 
-const Navigation: FunctionComponent = (props: NavigationProps) => {
+const Navigation: FunctionComponent<NavigationPropsType> = (
+  props: NavigationPropsType
+) => {
   return (
     <Navbar bg="light" expand="lg">
       <Navbar.Brand href="#home">TODO</Navbar.Brand>

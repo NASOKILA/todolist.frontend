@@ -51,8 +51,9 @@ After authentication the data is saved into Session Storage, other data related 
 3. Open the TodoList-Frontend folder with vscode or another code editor.
 4. Open a terminal in the poject folder where the "project.json" file is located.
 5. Run "npn install" or "yarn insatll" to install all the dependencies.
-6. Run "npm start" or "yarn start" to run the project.
-7. (Optional) Run "npm test start" or "yarn test start" to run the tests.
+6. Make sure you have "react-scripts start" command in "package.json" file under "scripts > start" step.
+7. Run "npm start" or "yarn start" to run the project.
+8. (Optional) Run "npm test start" or "yarn test start" to run the tests.
 
 # Build and Test
 

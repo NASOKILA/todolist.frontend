@@ -1,116 +1,137 @@
-import React, { Component } from "react";
+import React, { FunctionComponent, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Card from "react-bootstrap/Card";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faHandPaper } from "@fortawesome/free-solid-svg-icons";
+import {
+  LoginPropsType,
+  LoginCredentialsType,
+  UserDetailsAuthDataType
+} from "../../../types/types";
+import * as AuthRequests from "../../../apis/todolistApi/authRequests";
+import { toast } from "react-toastify";
+import { userLogin } from "../../../utils/Auth";
 import "./login.scss";
+import ErrorModal from "../../modal/errorModal";
 
-type LoginPropsType = {
-  history: any;
-  children: any;
-};
+//Functional Component managing state, React Hooks
+const Login: FunctionComponent<LoginPropsType> = (props: LoginPropsType) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessages, setErrorMessages] = useState([]);
+  const [showErrorModal, setShowErrorModal] = useState<Boolean>(false);
 
-type LoginStateType = {
-  form: {
-    email: string;
-    password: string;
-  };
-  errorMessageShow: Boolean;
-};
-
-type LoginCredentialsType = {
-  email: string;
-  password: string;
-};
-
-class Login extends Component<LoginPropsType, LoginStateType> {
-  constructor(props: LoginPropsType) {
-    super(props);
-
-    this.state = {
-      form: {
-        email: "",
-        password: ""
-      },
-      errorMessageShow: false
-    };
-  }
-
-  componentWillMount() {}
-
-  componentDidMount() {}
-
-  login = (e: any): void => {
+  const login = (e: any): void => {
     e.preventDefault();
 
-    let loginCredentials: LoginCredentialsType = {
-      email: this.state.form.email,
-      password: this.state.form.password
+    let data: LoginCredentialsType = {
+      email: email,
+      password: password
     };
 
-    let newState = { ...this.state };
-    newState.form.password = "";
-    newState.form.email = "";
-    this.setState(newState);
-
-    console.log(loginCredentials);
-    //TO DO: Call API and Redirect to the main page
-    setTimeout(() => {
-      this.props.history.push("/main");
-    }, 1000);
+    AuthRequests.Login(data)
+      .then((res: any) => {
+        const userDetailsData: UserDetailsAuthDataType = res.data;
+        userLogin(userDetailsData);
+        setEmail("");
+        setPassword("");
+        toast("Login successfull!");
+        setTimeout(() => {
+          window.location.href = "/home"; //NO WAY TO RERENDER NAVIGATION
+        }, 500);
+      })
+      .catch((err: any) => {
+        if (err.response !== undefined) {
+          const receivedError = err.response.data;
+          let errorMessages: any = [];
+          errorMessages.push(receivedError);
+          setErrorMessages(errorMessages);
+        } else {
+          console.log(err);
+          setShowErrorModal(true);
+        }
+      });
   };
 
-  logout = () => {};
-
-  emailOnChangeHandler = (e: any): void => {
-    //call API and check if email is not been used
-    let newForm = { ...this.state.form };
-    newForm.email = e.target.value;
-    this.setState({ form: newForm });
+  const closeErrorModal: Function = (): void => {
+    setShowErrorModal(!showErrorModal);
   };
 
-  passwordOnChangeHandler = (e: any): void => {
-    //Check if password is valid
-    let newForm = { ...this.state.form };
-    newForm.password = e.target.value;
-    this.setState({ form: newForm });
+  const emailOnChangeHandler = (e: any): void => {
+    setEmail(e.target.value);
   };
 
-  render() {
-    return (
-      <Card className="text-center loginpage page">
-        <Card.Body>
-          <Form onSubmit={this.login}>
-            <Form.Group controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="Enter email"
-                onChange={this.emailOnChangeHandler}
-                value={this.state.form.email}
-              />
-              <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
-              </Form.Text>
-            </Form.Group>
+  const passwordOnChangeHandler = (e: any): void => {
+    setPassword(e.target.value);
+  };
 
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Password"
-                onChange={this.passwordOnChangeHandler}
-                value={this.state.form.password}
-              />
-            </Form.Group>
+  const isFormFilled: Function = (): Boolean => {
+    if (email === "" || password === "") {
+      return false;
+    }
+    return true;
+  };
 
-            <Button variant="primary" type="submit">
-              Login
+  return (
+    <Card className="text-center loginpage page">
+      <h3>Login</h3>
+      <Card.Body>
+        <ul className="errorList">
+          {errorMessages.map((error, i) => {
+            return (
+              <li key={i} className="errorItem">
+                {error}
+              </li>
+            );
+          })}
+        </ul>
+        <Form onSubmit={login}>
+          <Form.Group controlId="formBasicEmail">
+            <Form.Label>Email address</Form.Label>
+
+            <Form.Control
+              type="email"
+              placeholder="Enter email"
+              onChange={emailOnChangeHandler}
+              value={email}
+            />
+            <Form.Text className="text-muted">
+              We'll never share your email with anyone else.
+            </Form.Text>
+          </Form.Group>
+
+          <Form.Group controlId="formBasicPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Password"
+              onChange={passwordOnChangeHandler}
+              value={password}
+            />
+          </Form.Group>
+          {isFormFilled() ? (
+            <Button variant="success" type="submit">
+              <FontAwesomeIcon icon={faPlus} /> Login
             </Button>
-          </Form>
-        </Card.Body>
-      </Card>
-    );
-  }
-}
+          ) : (
+            <Button
+              variant="danger"
+              disabled
+              className="disabled-submit-buton"
+              type="submit"
+            >
+              <FontAwesomeIcon icon={faHandPaper} /> Login
+            </Button>
+          )}
+        </Form>
+      </Card.Body>
+      {showErrorModal && (
+        <ErrorModal isOpen={showErrorModal} handleClose={closeErrorModal} />
+      )}
+    </Card>
+  );
+};
 
 export default Login;

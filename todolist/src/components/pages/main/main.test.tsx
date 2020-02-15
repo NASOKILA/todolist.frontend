@@ -4,7 +4,7 @@ import findByTestAttribute from "../../../utils/findByTestAttribute";
 import Main from "./main";
 
 const SetUp: Function = (props: Object = {}) => {
-  const component: Object = shallow(<Main />);
+  const component: Object = shallow(<Main history={""} />);
   return component;
 };
 
@@ -38,7 +38,30 @@ describe("Main component", () => {
         component,
         "[variant='primary']"
       );
+      expect(wrapper.length).toBe(2);
+    });
+
+    test("Should have .authBtn class", () => {
+      const wrapper: Array<any> = findByTestAttribute(component, ".authBtn");
+      expect(wrapper.length).toBe(2);
+    });
+
+    test("Should have .loginBtn class", () => {
+      const wrapper: Array<any> = findByTestAttribute(component, ".loginBtn");
       expect(wrapper.length).toBe(1);
+    });
+
+    test("Should have .registerBtn class", () => {
+      const wrapper: Array<any> = findByTestAttribute(
+        component,
+        ".registerBtn"
+      );
+      expect(wrapper.length).toBe(1);
+    });
+
+    test("Should have size=lg on an existing button", () => {
+      const wrapper: Array<any> = findByTestAttribute(component, "[size='lg']");
+      expect(wrapper.length).toBe(2);
     });
   });
 });

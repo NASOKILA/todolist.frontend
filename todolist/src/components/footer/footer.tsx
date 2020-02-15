@@ -1,9 +1,7 @@
 import React, { FunctionComponent } from "react";
 import "./footer.scss";
 
-type FooterPropsType = {};
-
-const Footer: FunctionComponent<FooterPropsType> = () => {
+const Footer: FunctionComponent = () => {
   return (
     <footer className="blockquote-footer todofooter">
       <span>

@@ -1,0 +1,29 @@
+$defaultMargin: 1rem;
+
+.page {
+  margin: $defaultMargin;
+  width: 50%;
+  margin: 2rem auto;
+}
+
+@media (max-width: 991px) {
+  .page {
+    margin: $defaultMargin;
+    width: 80%;
+    margin: 2rem auto;
+  }
+}
+
+@media (max-width: 400px) {
+  .page {
+    margin: $defaultMargin;
+    width: 95%;
+    margin: 0.5rem auto;
+  }
+}
+
+@media (max-width: 540px) {
+  .main-or-buttons {
+    display: block;
+  }
+}
